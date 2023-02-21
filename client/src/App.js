@@ -1,3 +1,6 @@
+//import React, { useState } from "react";
+// // import NewResolutionForm from "./components/NewResolutionForm";
+// // import ResolutionList from "./components/ResolutionList";
 import './App.css';
 
 function App() {
