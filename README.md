@@ -50,8 +50,10 @@ To see the initial design of the app:
 
 ![Initial Design picture](Initial_Design_picture.png)
 
-![Initial Design picture](Initial_Design_picture.png)
+<img src="initialdesignpicture.png"
+     alt="Initial Design picture"
+     style="float: left; margin-right: 10px;" />
 
-![Initial Design picture](Initial_Design_picture.png)
-
-![Initial Design picture](/assets/images/Initial_Design_picture.png)
+<img src="Initial_Design_picture.png"
+     alt="Initial Design picture"
+     style="float: left; margin-right: 10px;" />	 
