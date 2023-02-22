@@ -1,0 +1,9 @@
+.ResolutionList button {
+    margin: 0 5px;
+    font-size: 0.5em;
+}
+
+.ResolutionList .done {
+    text-decoration: line-through;
+    color: #888;
+}
