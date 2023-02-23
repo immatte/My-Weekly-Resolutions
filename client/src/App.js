@@ -30,7 +30,8 @@ import './App.css';
 
   function App() {
     const [allResolutions, setAllResolutions] = useState([]);
-    
+    const [weeklyResolutions, setWeeklyResolutions] = useState([]);
+
     function addResolution(newResolution) {
       newResolution.id = allResolutions.length + 1; //to add an unique ID
 
@@ -69,7 +70,7 @@ import './App.css';
           deleteCb={id => deleteResolution(id)}
            />
 
-      <h2>Add a new day and a description of your resolution for that day</h2>
+      <h2>Add a New Daily Resolution</h2>
       {/* Pass function to child component: call this function when user submits form */}
       <NewResolutionForm addResolutionCb={nr => addResolution(nr)} />
       </div>

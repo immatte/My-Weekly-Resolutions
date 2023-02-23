@@ -10,12 +10,12 @@ function ResolutionList(props) {
                 {
                     props.resolutions.map(r => (
                         <li key={r.id} className={r.done ? "done" : null}>
-                            {r.title} {r.day} {r.description}
+                            {r.date} {r.title} {r.day} {r.description}
                             <button onClick={e => props.toggleDoneCb(r.id)} type="button">
-                                done
+                                DONE
                             </button>
                             <button onClick={e => props.deleteCb(r.id)} type="button">
-                                delete
+                                DELETE
                             </button>
                             </li>
                     ))

@@ -3,8 +3,8 @@ import "./NewResolutionForm.css";
 //import DatePicker from "react-datepicker";
 
 const EMPTY_FORM = {
-   // title: "",
-   // date: "",
+    title: "",
+    date: "",
     day: "",
     description: "",
 };
@@ -91,8 +91,8 @@ return (
                 onChange={handleChange}
                 />
             </label>
-            <button type="submit">Add Resolution</button>
-            console.log(NewResolutionForm)
+            <button type="submit">Add Daily Resolution</button>
+            
             </div>
         </form>
     );
