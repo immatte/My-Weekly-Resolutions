@@ -33,35 +33,37 @@ import './App.css';
   };
 
   function App() {
-    const [allDailyResolutions, setAllDailyResolutions] = useState([]);
-    const [weeklyResolutions, setWeeklyResolutions] = useState([]);
+    const [dailyResolutions, setDailyResolutions] = useState([]);
+    const [weeklyResolutions, setWeeklyResolutions] = useState([]);//I DON'T KNOW
+    //WHY I WROTE THIS HERE :(
     const [formData, setFormData] = useState(EMPTY_FORM);
 
     function addDailyResolution(newDailyResolution) {
-      newDailyResolution.id = allDailyResolutions.length + 1; //to add an unique ID
+      newDailyResolution.id = dailyResolutions.length + 1; //to add an unique ID
 
     //push on the allDailyResolutions array
-    let newAllDailyResolutions = [...allDailyResolutions];
-    newAllDailyResolutions.push(newDailyResolution);
-    setAllDailyResolutions(allDailyResolutions => newAllDailyResolutions);
+    let newDailyResolutions = [...dailyResolutions];
+    newDailyResolutions.push(newDailyResolution);
+    setDailyResolutions(dailyResolutions => newDailyResolutions);
+    //I DON'T KNOW WHY IT'S ALL GREY :(
   }
 
   function toggleDone(id) {
     //make a copy of state
-    let newAllDailyResolutions = [...allDailyResolutions];
+    let newDailyResolutions = [...dailyResolutions];
     //find the resolution to modify
-    let dailyResolution = newAllDailyResolutions.find(r => r.id === id);
+    let dailyResolution = newDailyResolutions.find(r => r.id === id);
     //toggle the "done" property
     dailyResolution.done = !dailyResolution.done;
     //update state
-    setAllDailyResolutions(allDailyResolutions => newAllDailyResolutions);
+    setDailyResolutions(dailyResolutions => newDailyResolutions);
   }
 
   function deleteResolution(id) {
     //make copy of state and remove resolution in same step
-  let newAllDailyResolutions = allDailyResolutions.filter(r => r.id !== id);
+  let newDailyResolutions = dailyResolutions.filter(r => r.id !== id);
   //update state
-  setAllDailyResolutions(allDailyResolutions => newAllDailyResolutions);
+  setDailyResolutions(dailyResolutions => newDailyResolutions);
   }
 
   function handleChange(event) {
@@ -81,7 +83,7 @@ import './App.css';
     const allInfo = {
       title: formData.title,
       reward: formData.reward,
-      dailyResolutions: allDailyResolutions,
+      dailyResolutions: dailyResolutions, //estaba puesto dailyResolutions: dailyResolutions,
     };
 
     await fetch("/resolutions", { //Germinal puso /api/resolutions
@@ -156,7 +158,7 @@ import './App.css';
   </div> */}
 
 <ResolutionList 
-          dailyResolutions={allDailyResolutions} 
+          dailyResolutions={dailyResolutions} 
           toggleDoneCb={id => toggleDone(id)}
           deleteCb={id => deleteResolution(id)}
            />

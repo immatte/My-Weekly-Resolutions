@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 router.get("/resolutions", (req, res) => {
   // Send back the full list of daily resolutions
-  db("SELECT * FROM resolutions ORDER BY id ASC;")
+  db("SELECT * FROM weeklyResolutions ORDER BY id ASC;")
     .then(results => {
       res.send(results.data);
     })
@@ -32,7 +32,7 @@ router.post("/resolutions", async (req, res) => { //I can change the name.
   let { day, description, weekId, title, reward }= req.body; //see what I wrote in name in NewResolutionForm.js
   let sql = `
     INSERT INTO dailyresolutions (day, description, weekId)
-    VALUES ('${day}', '${description}', ${weekId}), INSERT INTO weeklyresolutions (title, reward)
+    VALUES ('${day}', '${description}', ${weekId}); INSERT INTO weeklyresolutions (title, reward)
     VALUES ('${title}', '${reward}')
   `; //don't forget to put '' if they are strings.
 
@@ -76,54 +76,54 @@ router.post("/resolutions", async (req, res) => { //I can change the name.
 
 
 
-router.put("/resolutions/:resolution_id", async (req, res) => {
-  let resolutionId = req.params.todo_id;
+// router.put("/resolutions/:resolution_id", async (req, res) => {
+//   let resolutionId = req.params.todo_id;
 
-  try {
-    // See if resolution exists
-    let results = await db(`SELECT * FROM resolutions WHERE id = ${resolutionId}`);
-    if (results.data.length === 0) {
-      // Resolution not found
-      res.status(404).send({ error: "Resolution not found" });
-    } else {
-      // Resolution found!
-      let { text, complete } = req.body;
-      let sql = `
-        UPDATE resolutions 
-        SET text = '${text}', complete = ${complete}
-        WHERE id = ${resolutionId}
-      `;
-      // Do the UPDATE
-      await db(sql);
-      // Return updated array of items
-      let results = await db("SELECT * FROM resolutions");
-      res.send(results.data);
-    }
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
-});
+//   try {
+//     // See if resolution exists
+//     let results = await db(`SELECT * FROM resolutions WHERE id = ${resolutionId}`);
+//     if (results.data.length === 0) {
+//       // Resolution not found
+//       res.status(404).send({ error: "Resolution not found" });
+//     } else {
+//       // Resolution found!
+//       let { text, complete } = req.body;
+//       let sql = `
+//         UPDATE resolutions 
+//         SET text = '${text}', complete = ${complete}
+//         WHERE id = ${resolutionId}
+//       `;
+//       // Do the UPDATE
+//       await db(sql);
+//       // Return updated array of items
+//       let results = await db("SELECT * FROM resolutions");
+//       res.send(results.data);
+//     }
+//   } catch (err) {
+//     res.status(500).send({ error: err.message });
+//   }
+// });
 
-router.delete("/resolutions/:resolution_id", async (req, res) => {
-  let resolutionId = req.params.resolution_id;
+// router.delete("/resolutions/:resolution_id", async (req, res) => {
+//   let resolutionId = req.params.resolution_id;
 
-  try {
-    // See if resolution exists
-    let results = await db(`SELECT * FROM resolutions WHERE id = ${resolutionId}`);
-    if (results.data.length === 0) {
-      // Resolution not found
-      res.status(404).send({ error: "Resolution not found" });
-    } else {
-      // Resolution found! Now delete it!
-      await db(`DELETE FROM resolutions WHERE id = ${resolutionId}`);
-      // Return updated array of resolutions
-      results = await db("SELECT * FROM resolutions");
-      res.send(results.data);
-    }
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
-});
+//   try {
+//     // See if resolution exists
+//     let results = await db(`SELECT * FROM resolutions WHERE id = ${resolutionId}`);
+//     if (results.data.length === 0) {
+//       // Resolution not found
+//       res.status(404).send({ error: "Resolution not found" });
+//     } else {
+//       // Resolution found! Now delete it!
+//       await db(`DELETE FROM resolutions WHERE id = ${resolutionId}`);
+//       // Return updated array of resolutions
+//       results = await db("SELECT * FROM resolutions");
+//       res.send(results.data);
+//     }
+//   } catch (err) {
+//     res.status(500).send({ error: err.message });
+//   }
+// });
 
 module.exports = router;
 
