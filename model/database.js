@@ -17,18 +17,34 @@ const con = mysql.createConnection({
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-  // title: "",
-  // date: "",
-  // day: "",
-  // description: "",
+  
   let sql =
-    "DROP TABLE if exists dailyResolutions; CREATE TABLE dailyResolutions(id INT NOT NULL AUTO_INCREMENT, title VARCHAR(40) not null, date DATE not null, day VARCHAR(20) not null, description VARCHAR(200) not null,  PRIMARY KEY (id));";
+    "DROP TABLE if exists dailyResolutions; CREATE TABLE dailyResolutions(id INT NOT NULL AUTO_INCREMENT, day VARCHAR(20) not null, description VARCHAR(200) not null, weekId INT NOT NULL, FOREIGN KEY (weekId) REFERENCES weeklyResolutions(id), PRIMARY KEY (id)); DROP TABLE if exists weeklyResolutions; CREATE TABLE weeklyResolutions(id INT NOT NULL AUTO_INCREMENT, title VARCHAR(40) not null, reward VARCHAR(200) not null, PRIMARY KEY (id))";
+  
   con.query(sql, function(err, result) {
     if (err) throw err;
-    console.log("Table creation `students` was successful!");
+    console.log("Tables created successfully!");
 
     console.log("Closing...");
   });
 
   con.end();
 });
+
+//I COPIED AND PASTED WHAT WAS ABOVE TO CREATE THE WEEKLYRESOLUTIONS TABLE
+// con.connect(function(err) {
+//   if (err) throw err;
+//   console.log("Connected!");
+
+//   let sql =
+//     "DROP TABLE if exists weeklyResolutions; CREATE TABLE weeklyResolutions(id INT NOT NULL AUTO_INCREMENT, title VARCHAR(40) not null, date DATE not null, day VARCHAR(20) not null, reward VARCHAR(200) not null, PRIMARY KEY (id));";
+//   con.query(sql, function(err, result) {
+//     if (err) throw err;
+//     console.log("Table creation `weeklyResolutions` was successful!");
+
+//     console.log("Closing...");
+//   });
+
+//   con.end();
+// });
+

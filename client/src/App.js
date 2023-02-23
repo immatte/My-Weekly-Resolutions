@@ -27,52 +27,154 @@ import './App.css';
   //   let selectResolution = resolutions.find(r => r.id === id);
   //   setFeatResolution(selectResolution);
   // }
+  const EMPTY_FORM = {
+    title: "",
+    reward: "",
+  };
 
   function App() {
-    const [allResolutions, setAllResolutions] = useState([]);
+    const [allDailyResolutions, setAllDailyResolutions] = useState([]);
     const [weeklyResolutions, setWeeklyResolutions] = useState([]);
+    const [formData, setFormData] = useState(EMPTY_FORM);
 
-    function addResolution(newResolution) {
-      newResolution.id = allResolutions.length + 1; //to add an unique ID
+    function addDailyResolution(newDailyResolution) {
+      newDailyResolution.id = allDailyResolutions.length + 1; //to add an unique ID
 
-    //push on the allResolutions array
-    let newAllResolutions = [...allResolutions];
-    newAllResolutions.push(newResolution);
-    setAllResolutions(allResolutions => newAllResolutions);
+    //push on the allDailyResolutions array
+    let newAllDailyResolutions = [...allDailyResolutions];
+    newAllDailyResolutions.push(newDailyResolution);
+    setAllDailyResolutions(allDailyResolutions => newAllDailyResolutions);
   }
 
   function toggleDone(id) {
     //make a copy of state
-    let newAllResolutions = [...allResolutions];
+    let newAllDailyResolutions = [...allDailyResolutions];
     //find the resolution to modify
-    let resolution = newAllResolutions.find(r => r.id === id);
+    let dailyResolution = newAllDailyResolutions.find(r => r.id === id);
     //toggle the "done" property
-    resolution.done = !resolution.done;
+    dailyResolution.done = !dailyResolution.done;
     //update state
-    setAllResolutions(allResolutions => newAllResolutions);
+    setAllDailyResolutions(allDailyResolutions => newAllDailyResolutions);
   }
 
   function deleteResolution(id) {
     //make copy of state and remove resolution in same step
-  let newAllResolutions = allResolutions.filter(r => r.id !== id);
+  let newAllDailyResolutions = allDailyResolutions.filter(r => r.id !== id);
   //update state
-  setAllResolutions(allResolutions => newAllResolutions);
+  setAllDailyResolutions(allDailyResolutions => newAllDailyResolutions);
   }
+
+  function handleChange(event) {
+    //get the name of the field typed in and its value after the keystroke
+    const name = event.target.name;
+    const value = event.target.value;
+
+    let newFormData = { ...formData };
+    newFormData[name] = value;
+    setFormData((formData) => newFormData);
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("a punto de enviar al backend");
+
+    const allInfo = {
+      title: formData.title,
+      reward: formData.reward,
+      dailyResolutions: allDailyResolutions,
+    };
+
+    await fetch("/resolutions", { //Germinal puso /api/resolutions
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(allInfo),
+    });
+
+    console.log(allInfo);
+  };
 
   return (
     <div className="App">
       <h1>MY WEEKLY RESOLUTIONS</h1>
 
       <h2>My resolutions for this week</h2>
-      <ResolutionList 
-          resolutions={allResolutions} 
+      
+
+<form onSubmit={handleSubmit}>
+
+  <div>
+    <label>
+      Title: 
+      <input
+        type="text"
+        name="title"
+        value={formData.title}
+        onChange={handleChange}
+        />
+    </label>
+  </div>
+
+  <div>
+    <label>
+      Weekly Reward: 
+      <input
+        type="text"
+        name="reward"
+        value={formData.reward}
+        onChange={handleChange}
+      />
+    </label>
+  </div>
+
+
+
+
+  {/* <div>
+    <label>
+      Select Date (Week):
+        <input
+          type="week"
+          name="date"
+          value={formData.date}
+          onChange={handleChange}
+        />
+    </label>
+  </div> */}
+{/* 
+<div>
+    <label>
+      Weekly Resolution Number:
+        <input
+          type="number"
+          name="number"
+          value={formData.date}
+          onChange={handleChange}
+        />
+    </label>
+  </div> */}
+
+<ResolutionList 
+          dailyResolutions={allDailyResolutions} 
           toggleDoneCb={id => toggleDone(id)}
           deleteCb={id => deleteResolution(id)}
            />
 
-      <h2>Add a New Daily Resolution</h2>
+
+
+
+<h3>Add a New Daily Resolution</h3>
       {/* Pass function to child component: call this function when user submits form */}
-      <NewResolutionForm addResolutionCb={nr => addResolution(nr)} />
+      <NewResolutionForm addDailyResolutionCb={nr => addDailyResolution(nr)} />
+
+      
+
+       <button type="submit">Submit Weekly Resolution</button>
+      </form>
+
+
+      
       </div>
   );
 }
