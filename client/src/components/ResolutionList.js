@@ -10,7 +10,7 @@ function ResolutionList(props) {
                 {
                     props.dailyResolutions.map(r => (
                         <li key={r.id} className={r.done ? "done" : null}>
-                            {r.date} {r.title} {r.day} {r.description}
+                            {r.day} {r.description} {r.weekId}
                             <button onClick={e => props.toggleDoneCb(r.id)} type="button">
                                 DONE
                             </button>

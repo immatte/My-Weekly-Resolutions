@@ -29,10 +29,10 @@ router.post("/resolutions", async (req, res) => { //I can change the name.
   //and not in the weekly resolutions table. I have to add another router.post for this.
   //al final puse las dailyresolutions dentro de weekly resolutions y estoy intentando hacer un super post 
   
-  let { day, description, weekId, title, reward }= req.body; //see what I wrote in name in NewResolutionForm.js
+  let { {dailyResolutions}, title, reward }= req.body; //see what I wrote in name in NewResolutionForm.js
   let sql = `
-    INSERT INTO dailyresolutions (day, description, weekId)
-    VALUES ('${day}', '${description}', ${weekId}); INSERT INTO weeklyresolutions (title, reward)
+    INSERT INTO dailyresolutions (day, description)
+    VALUES ('${day}', '${description}' ${weekId}); INSERT INTO weeklyresolutions (title, reward)
     VALUES ('${title}', '${reward}')
   `; //don't forget to put '' if they are strings.
 

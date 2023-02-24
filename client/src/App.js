@@ -34,12 +34,12 @@ import './App.css';
 
   function App() {
     const [dailyResolutions, setDailyResolutions] = useState([]);
-    const [weeklyResolutions, setWeeklyResolutions] = useState([]);//I DON'T KNOW
-    //WHY I WROTE THIS HERE :(
     const [formData, setFormData] = useState(EMPTY_FORM);
+    
+
 
     function addDailyResolution(newDailyResolution) {
-      newDailyResolution.id = dailyResolutions.length + 1; //to add an unique ID
+      //newDailyResolution.id = dailyResolutions.length + 1; //to add an unique ID
 
     //push on the allDailyResolutions array
     let newDailyResolutions = [...dailyResolutions];
@@ -79,11 +79,13 @@ import './App.css';
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("a punto de enviar al backend");
+    let weekId = 0;
 
     const allInfo = {
       title: formData.title,
       reward: formData.reward,
       dailyResolutions: dailyResolutions, //estaba puesto dailyResolutions: dailyResolutions,
+      weekId: weekId,
     };
 
     await fetch("/resolutions", { //Germinal puso /api/resolutions
@@ -93,6 +95,8 @@ import './App.css';
       },
       body: JSON.stringify(allInfo),
     });
+
+weekId++;
 
     console.log(allInfo);
   };
