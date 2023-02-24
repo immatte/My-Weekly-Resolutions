@@ -25,11 +25,20 @@ function AddDailyResolutionForm(props) {
         props.addDailyResolutionCb(formData);
         setFormData(EMPTY_FORM); //to reset the form fields
     };
+//I'm going to try to change the submit for onclick and add a submit later, maybe
+    function handleClick() {
+        props.addDailyResolutionCb(formData);
+        setFormData(EMPTY_FORM);
+    }
        
   return (
      
-      <form className="AddDailyResolutionForm" onSubmit={handleSubmit}>
+       <form className="AddWeeklyResolutionForm" onSubmit={handleSubmit}>
            
+           <div className="AddDailyResolutionForm">
+          
+                       <div>
+
             <label for="day-select">Select a day:
               <select name="day" id="day-select" onChange={handleChange}>
                     <option value="">--Please select a day--</option>
@@ -53,9 +62,13 @@ function AddDailyResolutionForm(props) {
                 />
             </label>
 
-            <button type="submit">Add Daily Resolution</button>
-        </form>      
+            <button type="button" onClick={handleClick}>Add Daily Resolution</button>
     
+        </div>
+         </div>
+   <button type="submit">Submit your Weekly Resolutions</button> 
+    </form>       
+
     );
 }
 

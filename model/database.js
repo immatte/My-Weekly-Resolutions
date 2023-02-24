@@ -19,7 +19,7 @@ con.connect(function(err) {
   console.log("Connected!");
   
   let sql =
-    "DROP TABLE if exists dailyResolutions; CREATE TABLE dailyResolutions(id INT NOT NULL AUTO_INCREMENT, day VARCHAR(15) not null, description VARCHAR(150) not null)";
+    "DROP TABLE if exists dailyResolutions; CREATE TABLE dailyResolutions(id INT NOT NULL AUTO_INCREMENT, day VARCHAR(15) not null, description VARCHAR(150) not null)";"DROP TABLE if exists weeklyResolutions; CREATE TABLE weeklyResolutions(id INT NOT NULL AUTO_INCREMENT)";
   
   con.query(sql, function(err, result) {
     if (err) throw err;

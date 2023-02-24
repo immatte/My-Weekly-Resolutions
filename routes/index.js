@@ -16,20 +16,17 @@ router.get("/dailyResolutions", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-// const allInfo = {
-//   title: formData.title,
-//    reward: formData.reward,
-//   resolutions: allResolutions,
-// };
+router.get("/weeklyResolutions", (req, res) => {
+  // Send back the full list of daily resolutions
+  db("SELECT * FROM weeklyResolutions ORDER BY id ASC;")
+    .then(results => {
+      res.send(results.data);
+    })
+    .catch(err => res.status(500).send(err));
+});
 
-router.post("/dailyResolutions", async (req, res) => { //I can change the name.
-  //to differenciate it from weekly resolutions, I will call it resolutions/daily
-  //this is what I have to type in the server to use this table. I can call it as I want
-  //this way I know that the post is going to add that information in that table
-  //and not in the weekly resolutions table. I have to add another router.post for this.
-  //al final puse las dailyresolutions dentro de weekly resolutions y estoy intentando hacer un super post 
-  
-  let { day, description }= req.body; //see what I wrote in name in NewResolutionForm.js
+router.post("/dailyResolutions", async (req, res) => { 
+  let { day, description }= req.body; 
   let sql = `
     INSERT INTO dailyresolutions (day, description)
     VALUES ('${day}', '${description}'); 
@@ -44,6 +41,29 @@ router.post("/dailyResolutions", async (req, res) => { //I can change the name.
     res.status(500).send({ error: err.message });
   }
 });
+
+
+//I WANT TO ADD WITH THIS POST THE WHOLE DAILY RESOLUTIONS
+//TO BECAME A WEEKLY RESOLUTION 
+router.post("/weeklyResolutions", async (req, res) => { 
+  let { dailyResolutions }= req.body; 
+  let sql = `
+    INSERT INTO weeeklyResolutions (dailyresolutions)
+    VALUES ('${dailyResolutions}'); 
+  `; //don't forget to put '' if they are strings.
+
+  try {
+    await db(sql);
+    // Return updated array of items
+    let results = await db("SELECT * FROM weeklyResolutions");
+    res.send(results.data);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
+
+
+
 
 router.delete("/dailyResolutions/:r_id", async (req, res) => {
     let rId = req.params.r_id;
