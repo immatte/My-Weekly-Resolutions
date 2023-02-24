@@ -10,7 +10,7 @@ const con = mysql.createConnection({
   host: DB_HOST || "127.0.0.1",
   user: DB_USER || "root",
   password: DB_PASS,
-  database: DB_NAME || "resolutions",
+  database: DB_NAME || "resolutions2",
   multipleStatements: true
 });
 
@@ -19,7 +19,7 @@ con.connect(function(err) {
   console.log("Connected!");
   
   let sql =
-    "DROP TABLE if exists dailyResolutions; CREATE TABLE dailyResolutions(id INT NOT NULL AUTO_INCREMENT, day VARCHAR(20) not null, description VARCHAR(200) not null, weekId INT NOT NULL, FOREIGN KEY (weekId) REFERENCES weeklyResolutions(id), PRIMARY KEY (id)); DROP TABLE if exists weeklyResolutions; CREATE TABLE weeklyResolutions(id INT NOT NULL AUTO_INCREMENT, title VARCHAR(40) not null, reward VARCHAR(200) not null, PRIMARY KEY (id))";
+    "DROP TABLE if exists dailyResolutions; CREATE TABLE dailyResolutions(id INT NOT NULL AUTO_INCREMENT, day VARCHAR(15) not null, description VARCHAR(150) not null)";
   
   con.query(sql, function(err, result) {
     if (err) throw err;

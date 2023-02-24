@@ -7,9 +7,9 @@ router.get('/', function(req, res, next) {
   res.send( { message: 'Hello from the backend' });
 });
 
-router.get("/resolutions", (req, res) => {
+router.get("/dailyResolutions", (req, res) => {
   // Send back the full list of daily resolutions
-  db("SELECT * FROM weeklyResolutions ORDER BY id ASC;")
+  db("SELECT * FROM dailyResolutions ORDER BY id ASC;")
     .then(results => {
       res.send(results.data);
     })
@@ -22,29 +22,50 @@ router.get("/resolutions", (req, res) => {
 //   resolutions: allResolutions,
 // };
 
-router.post("/resolutions", async (req, res) => { //I can change the name.
+router.post("/dailyResolutions", async (req, res) => { //I can change the name.
   //to differenciate it from weekly resolutions, I will call it resolutions/daily
   //this is what I have to type in the server to use this table. I can call it as I want
   //this way I know that the post is going to add that information in that table
   //and not in the weekly resolutions table. I have to add another router.post for this.
   //al final puse las dailyresolutions dentro de weekly resolutions y estoy intentando hacer un super post 
   
-  let { {dailyResolutions}, title, reward }= req.body; //see what I wrote in name in NewResolutionForm.js
+  let { day, description }= req.body; //see what I wrote in name in NewResolutionForm.js
   let sql = `
     INSERT INTO dailyresolutions (day, description)
-    VALUES ('${day}', '${description}' ${weekId}); INSERT INTO weeklyresolutions (title, reward)
-    VALUES ('${title}', '${reward}')
+    VALUES ('${day}', '${description}'); 
   `; //don't forget to put '' if they are strings.
 
   try {
     await db(sql);
     // Return updated array of items
-    let results = await db("SELECT * FROM dailyresolutions", "SELECT * FROM weeklyresolutions");
+    let results = await db("SELECT * FROM dailyresolutions");
     res.send(results.data);
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
-//});
+});
+
+router.delete("/dailyResolutions/:r_id", async (req, res) => {
+    let rId = req.params.r_id;
+  
+    try {
+      // See if resolution exists
+      let results = await db(`SELECT * FROM dailyResolutions WHERE id = ${rId}`);
+      if (results.data.length === 0) {
+        // Resolution not found
+        res.status(404).send({ error: "Resolution not found" });
+      } else {
+        // Resolution found! Now delete it!
+        await db(`DELETE FROM dailyResolutions WHERE id = ${rId}`);
+        // Return updated array of resolutions
+        results = await db("SELECT * FROM dailyResolutions");
+        res.send(results.data);
+      }
+    } catch (err) {
+      res.status(500).send({ error: err.message });
+    }
+  });
+
 
 //router.post("/resolutions/weekly", async (req, res) => { //I can change the name.
   //to differenciate it from weekly resolutions, I will call it resolutions/daily
@@ -66,7 +87,7 @@ router.post("/resolutions", async (req, res) => { //I can change the name.
   // } catch (err) {
   //   res.status(500).send({ error: err.message });
   // }
-});
+//});
 
 
 
@@ -104,26 +125,7 @@ router.post("/resolutions", async (req, res) => { //I can change the name.
 //   }
 // });
 
-// router.delete("/resolutions/:resolution_id", async (req, res) => {
-//   let resolutionId = req.params.resolution_id;
-
-//   try {
-//     // See if resolution exists
-//     let results = await db(`SELECT * FROM resolutions WHERE id = ${resolutionId}`);
-//     if (results.data.length === 0) {
-//       // Resolution not found
-//       res.status(404).send({ error: "Resolution not found" });
-//     } else {
-//       // Resolution found! Now delete it!
-//       await db(`DELETE FROM resolutions WHERE id = ${resolutionId}`);
-//       // Return updated array of resolutions
-//       results = await db("SELECT * FROM resolutions");
-//       res.send(results.data);
-//     }
-//   } catch (err) {
-//     res.status(500).send({ error: err.message });
-//   }
-// });
+// 
 
 module.exports = router;
 

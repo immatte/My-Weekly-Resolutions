@@ -1,23 +1,23 @@
 // import React, { useState } from "react";
 import React from "react"
-import "./ResolutionList.css";
+import "./DailyResolutionList.css";
 //import FeatResolution from "./FeatResolution";
 
-function ResolutionList(props) {
+function DailyResolutionList(props) {
     return (
-        <div className="ResolutionList">
+        <div className="DailyResolutionList">
             <ul>
                 {
                     props.dailyResolutions.map(r => (
                         <li key={r.id} className={r.done ? "done" : null}>
-                            {r.day} {r.description} {r.weekId}
+                            {r.day} {r.description} 
                             <button onClick={e => props.toggleDoneCb(r.id)} type="button">
                                 DONE
                             </button>
                             <button onClick={e => props.deleteCb(r.id)} type="button">
                                 DELETE
                             </button>
-                            </li>
+                        </li>
                     ))
                 }
             </ul>
@@ -38,4 +38,4 @@ function ResolutionList(props) {
 
 
 
-export default ResolutionList;
+export default DailyResolutionList;

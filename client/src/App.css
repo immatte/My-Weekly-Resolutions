@@ -1,0 +1,8 @@
+.App {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.App h2 {
+    border-bottom: 1px solid #ccc;
+}

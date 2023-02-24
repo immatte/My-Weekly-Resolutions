@@ -1,9 +1,9 @@
-.ResolutionList button {
+.DailyResolutionList button {
     margin: 0 5px;
     font-size: 0.5em;
 }
 
-.ResolutionList .done {
+.DailyResolutionList .done {
     text-decoration: line-through;
     color: #888;
 }
