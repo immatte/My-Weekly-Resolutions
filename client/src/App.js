@@ -87,7 +87,6 @@ import './App.css';
       dailyResolutions: dailyResolutions, //estaba puesto dailyResolutions: dailyResolutions,
       weekId: weekId,
     };
-
     await fetch("/resolutions", { //Germinal puso /api/resolutions
       method: "POST",
       headers: {
