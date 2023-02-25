@@ -1,8 +1,15 @@
 .App {
-    width: 600px;
+    width: 800px;
     margin: 0 auto;
 }
 
-.App h2 {
+h2 {
     border-bottom: 1px solid #ccc;
+    margin-top: 2em;
+}
+
+#app-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
 }

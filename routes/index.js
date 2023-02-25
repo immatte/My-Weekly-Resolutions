@@ -6,8 +6,8 @@ var db = require('../model/helper.js');
 router.get('/', function(req, res, next) {
   res.send( { message: 'Hello from the backend' });
 });
-
-router.get("/dailyResolutions", (req, res) => {
+//get DailyResolutionList (all daily resolutions)
+router.get("/dailyResolutions", (req, res, next) => {
   // Send back the full list of daily resolutions
   db("SELECT * FROM dailyResolutions ORDER BY id ASC;")
     .then(results => {
@@ -16,20 +16,20 @@ router.get("/dailyResolutions", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-router.get("/weeklyResolutions", (req, res) => {
-  // Send back the full list of daily resolutions
-  db("SELECT * FROM weeklyResolutions ORDER BY id ASC;")
-    .then(results => {
-      res.send(results.data);
-    })
-    .catch(err => res.status(500).send(err));
-});
+// router.get("/weeklyResolutions", (req, res) => {
+//   // Send back the full list of daily resolutions
+//   db("SELECT * FROM weeklyResolutions ORDER BY id ASC;")
+//     .then(results => {
+//       res.send(results.data);
+//     })
+//     .catch(err => res.status(500).send(err));
+// });
 
-router.post("/dailyResolutions", async (req, res) => { 
-  let { day, description }= req.body; 
+router.post("/dailyResolutions", async (req, res) => { //do I need the next?
+  let { title, day, description }= req.body; 
   let sql = `
-    INSERT INTO dailyresolutions (day, description)
-    VALUES ('${day}', '${description}'); 
+    INSERT INTO dailyresolutions (title, day, description)
+    VALUES ( '${title}', '${day}', '${description}'); 
   `; //don't forget to put '' if they are strings.
 
   try {
@@ -45,38 +45,35 @@ router.post("/dailyResolutions", async (req, res) => {
 
 //I WANT TO ADD WITH THIS POST THE WHOLE DAILY RESOLUTIONS
 //TO BECAME A WEEKLY RESOLUTION 
-router.post("/weeklyResolutions", async (req, res) => { 
-  let { dailyResolutions }= req.body; 
-  let sql = `
-    INSERT INTO weeeklyResolutions (dailyresolutions)
-    VALUES ('${dailyResolutions}'); 
-  `; //don't forget to put '' if they are strings.
+// router.post("/weeklyResolutions", async (req, res) => { 
+//   let { dailyResolutions }= req.body; 
+//   let sql = `
+//     INSERT INTO weeeklyResolutions (dailyresolutions)
+//     VALUES ('${dailyResolutions}'); 
+//   `; //don't forget to put '' if they are strings.
 
-  try {
-    await db(sql);
-    // Return updated array of items
-    let results = await db("SELECT * FROM weeklyResolutions");
-    res.send(results.data);
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
-});
+//   try {
+//     await db(sql);
+//     // Return updated array of items
+//     let results = await db("SELECT * FROM weeklyResolutions");
+//     res.send(results.data);
+//   } catch (err) {
+//     res.status(500).send({ error: err.message });
+//   }
+// });
 
-
-
-
-router.delete("/dailyResolutions/:r_id", async (req, res) => {
-    let rId = req.params.r_id;
+router.delete("/dailyResolutions/:dr_id", async (req, res) => {
+    let drId = req.params.dr_id;
   
     try {
       // See if resolution exists
-      let results = await db(`SELECT * FROM dailyResolutions WHERE id = ${rId}`);
+      let results = await db(`SELECT * FROM dailyResolutions WHERE id = ${drId}`);
       if (results.data.length === 0) {
         // Resolution not found
         res.status(404).send({ error: "Resolution not found" });
       } else {
         // Resolution found! Now delete it!
-        await db(`DELETE FROM dailyResolutions WHERE id = ${rId}`);
+        await db(`DELETE FROM dailyResolutions WHERE id = ${drId}`);
         // Return updated array of resolutions
         results = await db("SELECT * FROM dailyResolutions");
         res.send(results.data);

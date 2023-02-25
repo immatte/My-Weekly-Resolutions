@@ -1,40 +1,49 @@
 // import React, { useState } from "react";
 import React from "react"
 import "./DailyResolutionList.css";
-//import FeatResolution from "./FeatResolution";
+import FeatResolution from "./FeatResolution";
+//import DailyResolutionList from "database.json";
 
 function DailyResolutionList(props) {
     return (
-        <div className="DailyResolutionList">
+        <div className="DailyResolutionList">IS THIS USER VIEW??
             <ul>
-                {
-                    props.dailyResolutions.map(r => (
-                        <li key={r.id} className={r.done ? "done" : null}>
-                            {r.day} {r.description} 
-                            <button onClick={e => props.toggleDoneCb(r.id)} type="button">
+                {props.allDailyResolutions.map(dr => (
+                    // <li key={dr.id}> className={dr.done ? "done" : null>
+                    // {dr.day} {dr.description} 
+                    //     <button 
+                    //         type="button"
+                    //         title="toggleDone"
+                    //         onClick={e => props.toggleDoneDRCb(dr.id)}
+                    //         >
+                    //         DONE
+                    //     </button>
+
+                    //     <button
+                    //         type="button"
+                    //         title="delete"
+                    //         onClick={e => props.deleteDRCb(dr.id)}
+                    //         >
+                    //         DELETE
+                    //     </button>
+                    //     {dr.title} {dr.day} {dr.description}
+                    // </li> 
+                
+                        <li key={dr.id} className={dr.done ? "done" : null}>
+                            {dr.title} {dr.day} {dr.description} 
+                            <button onClick={e => props.toggleDoneDRCb(dr.id)} type="button">
                                 DONE
                             </button>
-                            <button onClick={e => props.deleteCb(r.id)} type="button">
+                            <button onClick={e => props.deleteDRCb(dr.id)} type="button">
                                 DELETE
                             </button>
                         </li>
-                    ))
-                }
+                    ))}
+                
             </ul>
         </div>
     );
 }
-
-
-{/* pass "featResolution1" prop from App to FeatResolution as "featResolution2"
-            <FeatResolution featResolution2={props.featResolution1} />
-            <ResolutionList
-    resolutions2={props.resolutions1}
-// pass callback from App down to ResolutionList; it gets called on user click
-    showResolutionCb2={id => props.showResolutionCb1(id)}
-            /> */}
-      
-
 
 
 

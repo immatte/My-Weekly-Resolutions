@@ -3,15 +3,17 @@ import './App.css';
 import AddDailyResolutionForm from "./components/AddDailyResolutionForm";
 import DailyResolutionList from "./components/DailyResolutionList";
 import MyWeeklyResolutions from "./components/MyWeeklyResolutions";
+import FeatResolution from "./components/FeatResolution";
+import { Routes, Route, Link } from "react-router-dom";
 
 function App() {
   const [allDailyResolutions, setAllDailyResolutions] = useState([]);
-  const [weeklyResolutions, setWeeklyResolutions] = useState([]);
-  const [DRF, setDRF] = useState(false); //to use WR first
+ // const [weeklyResolutions, setWeeklyResolutions] = useState([]);
+  // const [DRF, setDRF] = useState(false); //to use WR first
 
-const handleChangeView = (DRF) => {
-  setDRF(DRF);
-}
+// const handleChangeView = (DRF) => {
+//   setDRF(DRF);
+// }
 
 
 useEffect(() => {
@@ -30,18 +32,20 @@ function getAllDailyResolutions() {
     });
 }
 
-function getWeeklyResolutions() {
-  fetch("/weeklyResolutions")
-    .then(response => response.json())
-    .then(weeklyResolutions => {
-      setWeeklyResolutions(weeklyResolutions);
+// function getWeeklyResolutions() {
+//   fetch("/weeklyResolutions")
+//     .then(response => response.json())
+//     .then(weeklyResolutions => {
+//       setWeeklyResolutions(weeklyResolutions);
 
-    })
-    .catch(error => {
-      console.log(error);
-    });
-}
-
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// }
+useEffect(() => {
+  addDailyResolution();
+}, []);
 
   async function addDailyResolution(newDailyResolution) {
   //   newDailyResolution.id = allDailyResolutions.length + 1; //to add an unique ID
@@ -68,30 +72,30 @@ function getWeeklyResolutions() {
       }
       }
     
-      async function addWeeklyResolution(newWeeklyResolution) {
-        //   newDailyResolution.id = allDailyResolutions.length + 1; //to add an unique ID
-        //   setAllDailyResolutions(allDailyResolutions => [...allDailyResolutions, newDailyResolution]);
-          console.log(newWeeklyResolution);
-        //Define fetch options
-          let options = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newWeeklyResolution)
-          };
+      // async function addWeeklyResolution(newWeeklyResolution) {
+      //   //   newDailyResolution.id = allDailyResolutions.length + 1; //to add an unique ID
+      //   //   setAllDailyResolutions(allDailyResolutions => [...allDailyResolutions, newDailyResolution]);
+      //     console.log(newWeeklyResolution);
+      //   //Define fetch options
+      //     let options = {
+      //       method: "POST",
+      //       headers: { "Content-Type": "application/json" },
+      //       body: JSON.stringify(newWeeklyResolution)
+      //     };
           
-          try {
-            let response = await fetch("/weeklyResolutions", options);
-            if (response.ok) {
-              let data = await response.json();
-              setWeeklyResolutions(data);
-            } else {
-              console.log(`Server error: ${response.status}:
-              ${response.statusText}`);
-            }
-            } catch (err) {
-              console.log(`Network error: ${err.message}`);
-            }
-            }
+      //     try {
+      //       let response = await fetch("/weeklyResolutions", options);
+      //       if (response.ok) {
+      //         let data = await response.json();
+      //         setWeeklyResolutions(data);
+      //       } else {
+      //         console.log(`Server error: ${response.status}:
+      //         ${response.statusText}`);
+      //       }
+      //       } catch (err) {
+      //         console.log(`Network error: ${err.message}`);
+      //       }
+      //       }
 
 
 
@@ -99,7 +103,7 @@ function getWeeklyResolutions() {
     //make a copy of state
     let newAllDailyResolutions = [...allDailyResolutions];
     //find the resolution to modify
-    let dailyResolution = newAllDailyResolutions.find(r => r.id === id);
+    let dailyResolution = newAllDailyResolutions.find(dr => dr.id === id);
     //toggle the "done" property
     dailyResolution.done = !dailyResolution.done;
     //update state
@@ -133,12 +137,20 @@ function getWeeklyResolutions() {
     <div className="App">
       <h1>MY WEEKLY RESOLUTIONS</h1>
       <nav>
-        <button className={ DRF ? 'active' : null } onClick={() =>
+        <Link to="/dailyResolutions">11Add your Daily Resolutions</Link> |   
+        <Link to="/weeklyResolutions">22My Weekly Resolutions</Link> 
+        {/* <button className={ DRF ? 'active' : null } onClick={() =>
         handleChangeView(true)}>MY WEEKLY RESOLUTIONS</button>
         <button className={ !DRF ? 'active' : null } onClick={() =>
-        handleChangeView(true)}>ADD DAILY RESOLUTIONS</button>
+        handleChangeView(true)}>ADD DAILY RESOLUTIONS</button> */}
       </nav>
-{
+
+    <Routes>
+        <Route path="/dailyresolutions" element={<AddDailyResolutionForm />} />
+        <Route path="/weeklyresolutions" element={<MyWeeklyResolutions />} /> 
+      <Route path="/weeklyresolutions/:id" element={<FeatResolution />} /> 
+      </Routes>
+{/* {
   (DRF)
   //pass down callback to add new daily resolution
   ? <addDailyResolutionForm addDailyResolutionCb={(newDailyResolution) => addDailyResolution(newDailyResolution)} />
@@ -146,17 +158,24 @@ function getWeeklyResolutions() {
   :  <MyWeeklyResolutions addWeeklyResolutionCb={(newWeeklyResolution) => addWeeklyResolution(newWeeklyResolution)} //I don't know what to write between ()
       />
 
-}
-      <h2>My Daily Resolutions for this week</h2>
-      <DailyResolutionList
-       dailyResolutions={allDailyResolutions}
-       toggleDoneCb={id => toggleDoneDR(id)}
-       deleteCb={id => deleteDR(id)} 
-       />
+} */}
       
+    <div id="app-grid">
+      <div>
+        <h2>My Daily Resolutions for this week</h2>
+        <DailyResolutionList
+          allDailyResolutions={allDailyResolutions}
+          toggleDoneDRCb={id => toggleDoneDR(id)}
+          deleteDRCb={id => deleteDR(id)} 
+       />
+
+     
       <h2>Add a New Daily Resolution</h2>
-      <AddDailyResolutionForm addDailyResolutionCb={ndr => addDailyResolution(ndr)} />
-    </div>);
+      <AddDailyResolutionForm addDailyResolutionCb={dr => addDailyResolution(dr)} />
+    </div>
+    </div>
+    </div>
+  );
   }
 
   

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import "./AddDailyResolutionForm.css";
 
+// export default function AddDailyResolutionForm() {
+//     return <div>Add New Daily Resolution2</div>;
+// } 
+
 const EMPTY_FORM = {
     day: "",
     description: "",
@@ -11,12 +15,15 @@ function AddDailyResolutionForm(props) {
 
     function handleChange(event) {
         //get the name of the field typed in and its value after the keystroke
-        let name = event.target.name;
-        let value = event.target.value;
+        // let name = event.target.name;
+        // let value = event.target.value;
         
-        let newFormData = {...formData};
-        newFormData[name] = value;
-        setFormData(formData => newFormData);
+        // let newFormData = {...formData};
+        // newFormData[name] = value;
+        // setFormData(formData => newFormData);
+let { name, value } = event.target;
+setFormData(formData => ({ ...formData, [name]: value }));
+
     };
 
     function handleSubmit(event) {
@@ -33,14 +40,20 @@ function AddDailyResolutionForm(props) {
        
   return (
      
-       <form className="AddWeeklyResolutionForm" onSubmit={handleSubmit}>
-           
-           <div className="AddDailyResolutionForm">
-          
-                       <div>
+    <div className="AddDailyResolutionForm">This is View 1
+       <form onSubmit={handleSubmit}>
+            <label>
+                Title
+                <input
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                />
+            </label>
 
             <label for="day-select">Select a day:
-              <select name="day" id="day-select" onChange={handleChange}>
+              <select name="day" id="day-select" onChange={handleChange} >
                     <option value="">--Please select a day--</option>
                     <option value="MONDAY:">Monday</option>
                     <option value="TUESDAY:">Tuesday:</option>
@@ -62,13 +75,11 @@ function AddDailyResolutionForm(props) {
                 />
             </label>
 
-            <button type="button" onClick={handleClick}>Add Daily Resolution</button>
-    
+            {/* <button type="button" onClick={handleClick}>Add Daily Resolution</button> */}
+           
+                <button type="submit">Add Daily Resolutions</button> 
+            </form>       
         </div>
-         </div>
-   <button type="submit">Submit your Weekly Resolutions</button> 
-    </form>       
-
     );
 }
 
