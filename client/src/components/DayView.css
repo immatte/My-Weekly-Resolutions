@@ -1,0 +1,9 @@
+.DayView {
+    width: 400px;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
