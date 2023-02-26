@@ -5,7 +5,7 @@ function ResolutionForm(props) {
  let [input, setInput] = useState("");
 
  const handleChange = event => {
-    setInput(event,target,value);
+    setInput(event.target.value);
  };
 
  const handleSubmit = event => {
@@ -22,7 +22,7 @@ return (
                     <input type="text" value={input} onChange={e => handleChange(e)} />
                 </label>
 
-                <button type="submit">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
     </div>
 );

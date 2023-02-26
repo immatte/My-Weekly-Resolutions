@@ -1,9 +1,15 @@
+/* .days {
+    order: 1;
+} */
+
 .DayView {
     width: 400px;
     margin: 0 auto;
+    /* order:2 */
 }
 
 h2 {
     text-align: center;
     border-bottom: 1px solid #ccc;
 }
+

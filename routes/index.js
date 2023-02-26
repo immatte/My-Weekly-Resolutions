@@ -6,76 +6,66 @@ var db = require('../model/helper.js');
 router.get('/', function(req, res, next) {
   res.send( { message: 'Hello from the backend' });
 });
-//get DailyResolutionList (all daily resolutions)
-router.get("/dailyResolutions", (req, res, next) => {
-  // Send back the full list of daily resolutions
-  db("SELECT * FROM dailyResolutions ORDER BY id ASC;")
+
+router.get("/days", (req, res, next) => { //IT WORKS
+   db("SELECT * FROM days ORDER BY id ASC;")
     .then(results => {
       res.send(results.data);
     })
     .catch(err => res.status(500).send(err));
 });
 
-// router.get("/weeklyResolutions", (req, res) => {
-//   // Send back the full list of daily resolutions
-//   db("SELECT * FROM weeklyResolutions ORDER BY id ASC;")
-//     .then(results => {
-//       res.send(results.data);
-//     })
-//     .catch(err => res.status(500).send(err));
-// });
+router.get("/days/:day_id", (req, res) => { //IT DOESN'T WORK
+  db(`SELECT * FROM days WHERE id = ${dayId}`)
+  .then(results => {
+    res.send(results.data);
+  })
+  .catch(err => res.status(500).send(err));
+});
 
-router.post("/dailyResolutions", async (req, res) => { //do I need the next?
-  let { title, day, description }= req.body; 
+router.get("/days/:day_id/resolutions", (req, res) => {//IT WORKS BAD
+  //BECAUSE IT RETURNS ALL THE RESOLUTIONS
+    db("SELECT * FROM resolutions ORDER BY id ASC;")
+    .then(results => {
+      res.send(results.data);
+    })
+    .catch(err => res.status(500).send(err));
+});
+
+//THE POST DOESN'T WORK
+router.post("/days/:day_id/resolutions", async (req, res) => { //do I need the day_id? 
+  
+  let { day_id, text, complete }= req.body; 
   let sql = `
-    INSERT INTO dailyresolutions (title, day, description)
-    VALUES ( '${title}', '${day}', '${description}'); 
+    INSERT INTO resolutions ( ${day_id}, text, complete)
+    VALUES ( ${day_id}''${text}', ${complete}); 
   `; //don't forget to put '' if they are strings.
 
   try {
     await db(sql);
-    // Return updated array of items
-    let results = await db("SELECT * FROM dailyresolutions");
+   
+    let results = await db("SELECT * FROM resolutions");
     res.send(results.data);
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
 });
 
-
-//I WANT TO ADD WITH THIS POST THE WHOLE DAILY RESOLUTIONS
-//TO BECAME A WEEKLY RESOLUTION 
-// router.post("/weeklyResolutions", async (req, res) => { 
-//   let { dailyResolutions }= req.body; 
-//   let sql = `
-//     INSERT INTO weeeklyResolutions (dailyresolutions)
-//     VALUES ('${dailyResolutions}'); 
-//   `; //don't forget to put '' if they are strings.
-
-//   try {
-//     await db(sql);
-//     // Return updated array of items
-//     let results = await db("SELECT * FROM weeklyResolutions");
-//     res.send(results.data);
-//   } catch (err) {
-//     res.status(500).send({ error: err.message });
-//   }
-// });
-
-router.delete("/dailyResolutions/:dr_id", async (req, res) => {
-    let drId = req.params.dr_id;
+//:r_id it was written it like this
+router.delete("/days/:day_id/resolutions/:r_id", async (req, res) => {
+    let rId = req.params.r_id;
   
     try {
       // See if resolution exists
-      let results = await db(`SELECT * FROM dailyResolutions WHERE id = ${drId}`);
+      let results = await db(`SELECT * FROM resolutions WHERE id = ${rId}`);
       if (results.data.length === 0) {
         // Resolution not found
         res.status(404).send({ error: "Resolution not found" });
       } else {
         // Resolution found! Now delete it!
-        await db(`DELETE FROM dailyResolutions WHERE id = ${drId}`);
+        await db(`DELETE FROM resolutions WHERE id = ${rId}`);
         // Return updated array of resolutions
-        results = await db("SELECT * FROM dailyResolutions");
+        results = await db("SELECT * FROM resolutions");
         res.send(results.data);
       }
     } catch (err) {
@@ -83,66 +73,36 @@ router.delete("/dailyResolutions/:dr_id", async (req, res) => {
     }
   });
 
+ // :r_id it was written like that
+router.put("/days/:day_id/resolutions/:r_id", async (req, res) => {
+  let rId = req.params.r_id;
 
-//router.post("/resolutions/weekly", async (req, res) => { //I can change the name.
-  //to differenciate it from weekly resolutions, I will call it resolutions/daily
-  //this is what I have to type in the server to use this table. I can call it as I want
-  //this way I know that the post is going to add that information in that table
-  //and not in the weekly resolutions table. I have to add another router.post for this. 
-  
-  // let { title, reward } = req.body; //see what I wrote in name in NewResolutionForm.js
-  // let sql = `
-  //   INSERT INTO weeklyresolutions (title, reward)
-  //   VALUES ('${title}', '${reward}')
-  // `; //don't forget to put '' if they are strings.
-
-  // try {
-  //   await db(sql);
-  //   // Return updated array of items
-  //   let results = await db("SELECT * FROM weeklyresolutions");
-  //   res.send(results.data);
-  // } catch (err) {
-  //   res.status(500).send({ error: err.message });
-  // }
-//});
-
-
-
-
-
+  try {
+    
+    let results = await db(`SELECT * FROM resolutions WHERE id = ${rId}`);
+    if (results.data.length === 0) {
+      // Resolution not found
+      res.status(404).send({ error: "Resolution not found" });
+    } else {
+      // Resolution found!
+      let { day_id, text, complete } = req.body;
+      let sql = `
+        UPDATE resolutions 
+        SET day_id = ${day_id}, text = '${text}', complete = ${complete}
+        WHERE id = ${rId}
+      `;
+      // Do the UPDATE
+      await db(sql);
+      
+      let results = await db("SELECT * FROM resolutions");
+      res.send(results.data);
+    }
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
 
 
-
-
-// router.put("/resolutions/:resolution_id", async (req, res) => {
-//   let resolutionId = req.params.todo_id;
-
-//   try {
-//     // See if resolution exists
-//     let results = await db(`SELECT * FROM resolutions WHERE id = ${resolutionId}`);
-//     if (results.data.length === 0) {
-//       // Resolution not found
-//       res.status(404).send({ error: "Resolution not found" });
-//     } else {
-//       // Resolution found!
-//       let { text, complete } = req.body;
-//       let sql = `
-//         UPDATE resolutions 
-//         SET text = '${text}', complete = ${complete}
-//         WHERE id = ${resolutionId}
-//       `;
-//       // Do the UPDATE
-//       await db(sql);
-//       // Return updated array of items
-//       let results = await db("SELECT * FROM resolutions");
-//       res.send(results.data);
-//     }
-//   } catch (err) {
-//     res.status(500).send({ error: err.message });
-//   }
-// });
-
-// 
 
 module.exports = router;
 

@@ -4,7 +4,7 @@ import { Link, Outlet } from "react-router-dom";
 
 export default function DaysView() {
   return (
-    <div>
+    <div className="days">
       DAYS
       {days.map((day) => (
         <div key={day.id}>
@@ -12,8 +12,10 @@ export default function DaysView() {
             <Link to={`/days/${day.id}`}>{day.name}</Link>
           </p>
         </div>
+        
       ))}
       <Outlet />
     </div>
+   
   );
 }

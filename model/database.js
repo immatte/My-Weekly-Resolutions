@@ -10,7 +10,7 @@ const con = mysql.createConnection({
   host: DB_HOST || "127.0.0.1",
   user: DB_USER || "root",
   password: DB_PASS,
-  database: DB_NAME || "resolutions2",
+  database: DB_NAME || "resolutions3",
   multipleStatements: true
 });
 
@@ -19,7 +19,7 @@ con.connect(function(err) {
   console.log("Connected!");
   
   let sql =
-    "DROP TABLE if exists dailyResolutions; CREATE TABLE dailyResolutions(id INT NOT NULL AUTO_INCREMENT, title VARCHAR(35) not null, day VARCHAR(15) not null, description VARCHAR(150) not null)";"DROP TABLE if exists weeklyResolutions; CREATE TABLE weeklyResolutions(id INT NOT NULL AUTO_INCREMENT)";
+    "DROP TABLE if exists days; CREATE TABLE days(id INT NOT NULL, day VARCHAR(15) not null"; "DROP TABLE if exists resolutions; CREATE TABLE resolutions(id INT NOT NULL AUTO_INCREMENT, day_id INT NOT NULL, FOREIGN KEY (day_id) REFERENES days(id), text VARCHAR(150), complete BOOLEAN TINY INT(1))";
   
   con.query(sql, function(err, result) {
     if (err) throw err;
@@ -31,20 +31,4 @@ con.connect(function(err) {
   con.end();
 });
 
-//I COPIED AND PASTED WHAT WAS ABOVE TO CREATE THE WEEKLYRESOLUTIONS TABLE
-// con.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-
-//   let sql =
-//     "DROP TABLE if exists weeklyResolutions; CREATE TABLE weeklyResolutions(id INT NOT NULL AUTO_INCREMENT, title VARCHAR(40) not null, date DATE not null, day VARCHAR(20) not null, reward VARCHAR(200) not null, PRIMARY KEY (id));";
-//   con.query(sql, function(err, result) {
-//     if (err) throw err;
-//     console.log("Table creation `weeklyResolutions` was successful!");
-
-//     console.log("Closing...");
-//   });
-
-//   con.end();
-// });
 

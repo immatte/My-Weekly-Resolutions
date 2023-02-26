@@ -1,5 +1,5 @@
 .ResolutionForm input {
-    display: block;
+    display: flex;
     margin: 5px 0;
     width: 50%;
 }

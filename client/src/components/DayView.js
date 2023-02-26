@@ -14,8 +14,8 @@ export default function DayView() {
     getResolutions();
   }, []);
 
-function getResolutions() {
-    fetch("/days/resolutions")
+  function getDays() { //I DON'T KNOW HOW TO SEE THE LIST OF DAYS OF THE TABLE DAYS
+    fetch("/days")
         .then(response => {
             if (response.ok) {
                 return response.json();
@@ -28,19 +28,43 @@ function getResolutions() {
         .then(data => {
             setResolutions(data);
         })
+        .catch (error =>  {
+            console.log(`Error: ${error}`);
+        });
+}
+
+
+function getResolutions() {
+    fetch(`/days/${id}/resolutions`)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(
+                    `Server error: ${response.status}: ${response.statusText}`
+                );
+            }
+        })
+        .then(data => {
+            setResolutions(data);
+        })
+        .catch (error =>  {
+            console.log(`Error: ${error}`);
+        });
 }
  
 const addResolution = async text => {
-    let newResolution = { text, complete: false };
+    let newResolution = { day_id, text, complete: 0 };//I DON'T KNOW
+    //HOW TO WRITE day_id HERE
     
     let options = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newResolution)
     };
-
+    
     try {
-        let response = await fetch("/days/resolutions", options);
+        let response = await fetch(`/days/${id}/resolutions`, options);
         if (response.ok) {
             let data = await response.json();
             setResolutions(data);
@@ -48,11 +72,13 @@ const addResolution = async text => {
             console.log(`Server error: ${response.status}:
             ${response.statusText}`);
         }
+        
     } catch (err) {
         console.log(`Network error: ${err.message}`);
     }
+    console.log(newResolution)
 };
-
+ 
 const updateResolution = async id => {
     let resolution = resolutions.find(r => r.id === id);
     resolution.complete = !resolution.complete;
@@ -63,8 +89,8 @@ const updateResolution = async id => {
         body: JSON.stringify(resolution)
     };
 
-    try {
-        let response = await fetch(`/days/resolutions/${id}`, options);
+    try { //it was written fetch(`/days/resolutions/${id}`, options);
+        let response = await fetch(`/days/${id}/resolutions/${id}`, options);
         if (response.ok) {
             let data = await response.json();
             setResolutions(data);
@@ -83,8 +109,8 @@ const deleteResolution = async id => {
         method: "DELETE"
      };
 
-    try {
-        let response = await fetch(`/days/resolutions/${id}`, options);
+    try { //it was written fetch(`/days/resolutions/${id}`
+        let response = await fetch(`/days/${id}/resolutions/${id}`, options);
         if (response.ok) {
             let data = await response.json();
             setResolutions(data);
@@ -98,8 +124,10 @@ const deleteResolution = async id => {
 };
 
 return (
+    <div id="container">
     <div className="DayView">
       <h2>YOUR {day?.name}'S RESOLUTIONS</h2>
+      
         <ResolutionList
         resolutions={resolutions}
         toggleDoneCb={id => updateResolution(id)}
@@ -108,6 +136,7 @@ return (
 
     <h2>Add a New Resolution</h2>
     <ResolutionForm addResolutionCb={text => addResolution(text)} />
+    </div>
     </div>
   );
 }
