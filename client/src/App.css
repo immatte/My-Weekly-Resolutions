@@ -5,29 +5,27 @@
     background-color: #F5F5DC;
     font-family: 'Verdana';
     font-size: 15px;
-       }
+   }
 
 .my-navbar {
     background-color: rgba (0, 0, 0, 0.5);
     height: 30px;
-    padding-top: 10px;
+    padding: 20px;
     display: flex;
-    justify-content: space-evenly;
-    /* margin-bottom: 2em; */
+    border: 2px solid;
+} 
 
-}
 .App nav button {
-    margin-left: 10px;
+    margin-left: 200px;
     font-size: 1.2em;
     height: 30px;
     font-weight: bold;
+    /* justify-content:flex-end; */
 }
 
 h2 {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 5px solid #ccc;
     margin-top: 2em;
-    text-decoration: underline;
-
 }
 
 #container {

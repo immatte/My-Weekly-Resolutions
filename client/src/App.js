@@ -16,14 +16,15 @@ function App() {
 return (
     <div className="App">
       <h2>WELCOME TO YOUR WEEKLY RESOLUTIONS</h2>
-      <div className="container">
-      
-      
-      <nav class="my-navbar">
-        <button className="1">
+         <div className="container">
+    
+      <nav class="my-navbar" className="navbar navbar-expand-lg navbar-light bg-light">
+        <button >
+          <label className="text1">
           <Link to="/">Home</Link> 
+          </label> 
           </button>
-          <button className="2">
+          <button>
           <Link to="/days">Days</Link>
           </button> 
       </nav>                   

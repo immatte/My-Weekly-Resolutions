@@ -7,12 +7,12 @@ h2 {
 display: center;
 margin-top: 45px;
 margin-left: 0px;
-color: #0a3864;
 margin-right: 0px;    
 }
 
 .DayView h3 {
     font-weight: bold;
-    color: hsl(240, 82%, 38%);
     font-size: 23px;
+    color: rgb(35, 121, 213);
+    border-bottom: 5px solid #ccc;
 }
