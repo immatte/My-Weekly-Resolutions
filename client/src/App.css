@@ -1,11 +1,13 @@
 .App {
     width: 800px;
     margin:  auto;
-    color: #0a3864;
-    background-color: #F5F5DC;
+    /* color: #0a3864; */
+    background-color: hwb(5 91% 4%);
     font-family: 'Verdana';
     font-size: 15px;
-   }
+    color: #c81a1a;
+    font-weight: bold;
+      }
 
 .my-navbar {
     background-color: rgba (0, 0, 0, 0.5);
@@ -26,6 +28,9 @@
 h2 {
     border-bottom: 5px solid #ccc;
     margin-top: 2em;
+    color: #c81a1a;
+    padding: 10px;
+    text-align: center;
 }
 
 #container {
