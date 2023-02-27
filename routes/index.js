@@ -35,10 +35,11 @@ router.get("/days/:day_id/resolutions", (req, res) => {//IT WORKS BAD
 //THE POST DOESN'T WORK
 router.post("/days/:day_id/resolutions", async (req, res) => { //do I need the day_id? 
   
-  let { day_id, text, complete }= req.body; 
+  let { text, complete }= req.body; 
+  let day_id = req.params.day_id;
   let sql = `
-    INSERT INTO resolutions ( ${day_id}, text, complete)
-    VALUES ( ${day_id}''${text}', ${complete}); 
+    INSERT INTO resolutions ( day_id, text, complete)
+    VALUES ( ${day_id}, '${text}', ${complete}); 
   `; //don't forget to put '' if they are strings.
 
   try {

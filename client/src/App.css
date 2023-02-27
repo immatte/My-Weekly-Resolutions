@@ -7,11 +7,11 @@
     font-size: 15px;
        }
 
-.container {
-    /* display: "flex"; */
+/* .container {
+    display: "flex";
     display: grid;
     grid-template-columns: 1fr 1fr;
- }
+ } */
 
 .my-navbar {
     background-color: rgba (0, 0, 0, 0.5);

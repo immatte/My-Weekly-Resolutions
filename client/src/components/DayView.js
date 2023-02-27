@@ -54,8 +54,7 @@ function getResolutions() {
 }
  
 const addResolution = async text => {
-    let newResolution = { day_id, text, complete: 0 };//I DON'T KNOW
-    //HOW TO WRITE day_id HERE
+    let newResolution = { text, complete: 0 };
     
     let options = {
         method: "POST",
@@ -63,8 +62,10 @@ const addResolution = async text => {
         body: JSON.stringify(newResolution)
     };
     
-    try {
+    try {//I TRIED IT WITH :day_id, day_id, id and many other things...
+        ///days/${id}/resolutions. This is how it works. See below...
         let response = await fetch(`/days/${id}/resolutions`, options);
+        console.log(response);
         if (response.ok) {
             let data = await response.json();
             setResolutions(data);
@@ -89,7 +90,7 @@ const updateResolution = async id => {
         body: JSON.stringify(resolution)
     };
 
-    try { //it was written fetch(`/days/resolutions/${id}`, options);
+    try { 
         let response = await fetch(`/days/${id}/resolutions/${id}`, options);
         if (response.ok) {
             let data = await response.json();
@@ -109,7 +110,7 @@ const deleteResolution = async id => {
         method: "DELETE"
      };
 
-    try { //it was written fetch(`/days/resolutions/${id}`
+    try { 
         let response = await fetch(`/days/${id}/resolutions/${id}`, options);
         if (response.ok) {
             let data = await response.json();
@@ -124,19 +125,18 @@ const deleteResolution = async id => {
 };
 
 return (
-    <div id="container">
+    
     <div className="DayView">
       <h2>YOUR {day?.name}'S RESOLUTIONS</h2>
-      
+     <div className="ResolutionList">
         <ResolutionList
         resolutions={resolutions}
         toggleDoneCb={id => updateResolution(id)}
         deleteCb={id => deleteResolution(id)}
         />
-
     <h2>Add a New Resolution</h2>
     <ResolutionForm addResolutionCb={text => addResolution(text)} />
     </div>
-    </div>
+    </div> 
   );
 }

@@ -16,10 +16,10 @@ function App() {
 return (
     <div className="App">
       <div className="container">
-      HELLO, WELCOME TO YOUR WEEKLY RESOLUTIONS
+      WELCOME TO YOUR WEEKLY RESOLUTIONS
       
       <nav class="my-navbar">
-          <Link to="/">Home</Link> |
+          <Link to="/">Home</Link> 
           <Link to="/days">Days</Link> 
       </nav>                   
       
