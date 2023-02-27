@@ -21,8 +21,9 @@ return (
                     New Resolution
                     <input type="text" value={input} onChange={e => handleChange(e)} />
                 </label>
-
+                <div className="button">
                 <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </form>
     </div>
 );

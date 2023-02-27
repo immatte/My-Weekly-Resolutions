@@ -5,17 +5,17 @@ import "./DaysView.css";
 
 export default function DaysView() {
   return (
-    <div>
+    <div className="daysList">
       <label className="span-2-cols">
-      CLICK ON ONE OF THESE DAYS TO ADD OR SEE YOUR RESOLUTIONS FOR THAT DAY
+      <h5>Click on one of these days to add or see your daily resolutions</h5>
       </label>
        <div className="DaysView">
     
       <div className="days">
   
-      <label>
+      <label className="span-2-cols">
       {days.map((day) => (
-        <div key={day.id}>
+        <div className="day" key={day.id}>
           <p>
             <Link to={`/days/${day.id}`}>{day.name}</Link>
           </p>

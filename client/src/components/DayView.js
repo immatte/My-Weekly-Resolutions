@@ -127,14 +127,14 @@ const deleteResolution = async id => {
 return (
     
     <div className="DayView">
-      <h2>YOUR {day?.name}'S RESOLUTIONS</h2>
+      <h3>YOUR {day?.name}'S RESOLUTIONS</h3>
      <div className="ResolutionList">
         <ResolutionList
         resolutions={resolutions}
         toggleDoneCb={id => updateResolution(id)}
         deleteCb={id => deleteResolution(id)}
         />
-    <h2>Add a New Resolution</h2>
+    <h3>Add a New Resolution</h3>
     <ResolutionForm addResolutionCb={text => addResolution(text)} />
     </div>
     </div> 

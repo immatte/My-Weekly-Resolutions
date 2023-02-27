@@ -1,5 +1,15 @@
 .ResolutionForm input {
     display: flex;
     margin: 5px 0;
-    width: 50%;
+    width: 235%;
+    height: 2em;  
+}
+
+.button {
+   margin: 5px;
+   margin-left: 175px;
+}
+
+.ResolutionForm {
+    margin-top: 15px;
 }
