@@ -14,24 +14,24 @@ export default function DayView() {
     getResolutions();
   }, []);
 
-  function getDays() { //I DON'T KNOW HOW TO SEE THE LIST OF DAYS OF THE TABLE DAYS
-    fetch("/days")
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error(
-                    `Server error: ${response.status}: ${response.statusText}`
-                );
-            }
-        })
-        .then(data => {
-            setResolutions(data);
-        })
-        .catch (error =>  {
-            console.log(`Error: ${error}`);
-        });
-}
+//   function getDays() { //I THINK I DON'T NEED THIS
+//     fetch("/days")
+//         .then(response => {
+//             if (response.ok) {
+//                 return response.json();
+//             } else {
+//                 throw new Error(
+//                     `Server error: ${response.status}: ${response.statusText}`
+//                 );
+//             }
+//         })
+//         .then(data => {
+//             setResolutions(data);
+//         })
+//         .catch (error =>  {
+//             console.log(`Error: ${error}`);
+//         });
+// }
 
 
 function getResolutions() {
