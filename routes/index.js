@@ -47,7 +47,7 @@ router.get("/days/:day_id", (req, res) => { //IT WORKS
 
 //get RESOLUTIONS
 router.get("/resolutions", (req, res) => {//IT WORKS 
-    db("SELECT * FROM resolutions ORDER BY id ASC;")
+    db("SELECT * FROM resolutions ORDER BY day_id ASC;")
     .then(results => {
       res.send(results.data);
     })
@@ -57,7 +57,7 @@ router.get("/resolutions", (req, res) => {//IT WORKS
 //get RESOLUTIONS by day
 router.get("/days/:day_id/resolutions", (req, res) => {//IT WORKS 
   let day_id = req.params.day_id;
-  db(`SELECT * FROM resolutions where id = ${day_id} ORDER BY day_id ASC ;`)
+  db(`SELECT * FROM resolutions where day_id = ${day_id} ORDER BY day_id ASC ;`)
   .then(results => {
     res.send(results.data);
   })
@@ -65,7 +65,7 @@ router.get("/days/:day_id/resolutions", (req, res) => {//IT WORKS
 });
 
 //get RESOLUTIONS by user
-router.get("/resolutions/:user", (req, res) => {//
+router.get("/resolutions/:user", (req, res) => {//IT WORKS 
   let userId = req.params.user;
   db(`SELECT * FROM resolutions where userId = ${userId} ORDER by day_id ASC;`)
   .then(results => {
@@ -75,7 +75,7 @@ router.get("/resolutions/:user", (req, res) => {//
 });
 
 
-//THE POST WORKS
+//THE POST WORKS on APP but not on POSTMAN
 router.post("/days/:day_id/resolutions", async (req, res) => { //do I need the day_id? 
   
   let { text, complete, userId}= req.body; 
@@ -95,7 +95,7 @@ router.post("/days/:day_id/resolutions", async (req, res) => { //do I need the d
   }
 });
 
-//:r_id it was written it like this
+//:r_id it was written like this
 router.delete("/days/:day_id/resolutions/:r_id", async (req, res) => {
     let rId = req.params.r_id;
   
