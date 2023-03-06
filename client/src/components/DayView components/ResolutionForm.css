@@ -1,0 +1,20 @@
+.ResolutionForm input {
+    display: flex;
+    margin: 5px 0;
+    width: 235%;
+    height: 2em;  
+}
+
+#inputbar{
+    border-radius: 20px;
+    border: 1px solid grey;
+    width: 350px;
+    padding: 80px;
+}
+
+button.btn-primary {
+   margin: 5px;
+   margin-left: 175px;
+   background-color: rgb(213, 213, 213);
+   border: 1px solid rgb(84, 84, 84);
+}

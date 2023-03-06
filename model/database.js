@@ -18,8 +18,9 @@ con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
   
+  
   let sql =
-    "DROP TABLE if exists days; CREATE TABLE days(id INT NOT NULL, day VARCHAR(15) not null"; "DROP TABLE if exists resolutions; CREATE TABLE resolutions(id INT NOT NULL AUTO_INCREMENT, day_id INT NOT NULL, FOREIGN KEY (day_id) REFERENES days(id), text VARCHAR(150), complete BOOLEAN TINY INT(1))";
+  `DROP TABLE if exists days; CREATE TABLE days(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, day VARCHAR(15) not null); DROP TABLE if exists resolutions; CREATE TABLE resolutions(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, day_id INT NOT NULL, FOREIGN KEY (day_id) REFERENCES days(id), text VARCHAR(150), complete BOOLEAN)`;
   
   con.query(sql, function(err, result) {
     if (err) throw err;

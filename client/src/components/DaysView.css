@@ -1,19 +1,34 @@
 .DaysView {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 3fr;    
     gap: 25px;
+    padding: 40px;
 
 }
 .days {
-    margin-top: 20px;
-    font-weight: bold;
+    display: grid;
+    margin-top: 150px;
+    font-weight: 500;
+    padding: 40px;
 }
 
-.day {
-    margin-top: 25px;
+.day {    
+    margin-top: 40px;
     margin-bottom: 35px;
+    text-decoration: none;
+    box-shadow: 1px 1px 10px 1px rgba(72, 72, 72, 0.208);
+}
+.daybutton{
+    color: white;
+    border-radius: 10px;
+    background-color:rgb(133, 23, 78);
+    display: grid;
+    text-decoration: none;
+    padding: 20px;
+    border: 1px solid grey;
 }
 
 .daysList {
     margin-top: 40px;
 }
+

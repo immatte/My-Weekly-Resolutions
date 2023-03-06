@@ -6,7 +6,10 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "api": "^5.0.7",
     "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.3",
+    "local": "^0.3.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-datepicker": "^4.10.0",
@@ -39,5 +42,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5002"
+  "proxy": "http://localhost:5000"
 }

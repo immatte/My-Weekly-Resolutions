@@ -1,18 +1,27 @@
-h2 {
-    text-align: center;
-    border-bottom: 1px solid #ccc;
-}
-
 .DayView {
-display: center;
-margin-top: 45px;
-margin-left: 0px;
-margin-right: 0px;    
+    width: 80%;
+    /* display: center; */
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-right: 0px;    
 }
 
 .DayView h3 {
-    font-weight: bold;
+    font-weight: 650;
     font-size: 23px;
-    color: rgb(35, 121, 213);
-    border-bottom: 5px solid #ccc;
+    /* border-bottom: 5px solid #ccc; */
+}
+
+#resolutionDay{
+    font-size: 250%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-stretch: ultra-condensed;
+    border: 2px dashed grey;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: rgb(240, 240, 240);
+}
+
+.resolutionList{
+    padding: 20px;
 }

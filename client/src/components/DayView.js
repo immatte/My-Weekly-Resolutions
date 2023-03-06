@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import days from "../database.json";
-import ResolutionForm from "./ResolutionForm";
-import ResolutionList from "./ResolutionList";
+import ResolutionForm from "./DayView components/ResolutionForm";
+import ResolutionList from "./DayView components/ResolutionList";
 import "./DayView.css";
 
-export default function DayView() {
+export default function DayView(props) {
   const { id } = useParams();
   const day = days.find((day) => +day.id === +id);
   let [resolutions, setResolutions] = useState([]);
@@ -54,7 +54,7 @@ function getResolutions() {
 }
  
 const addResolution = async text => {
-    let newResolution = { text, complete: 0 };
+    let newResolution = { text, complete: 0, userId:props.user.id};
     
     let options = {
         method: "POST",
@@ -127,7 +127,7 @@ const deleteResolution = async id => {
 return (
     
     <div className="DayView">
-      <h3>YOUR {day?.name}'S RESOLUTIONS</h3>
+      <h3 id="resolutionDay">YOUR {day?.name}'S RESOLUTIONS</h3>
      <div className="ResolutionList">
         <ResolutionList
         resolutions={resolutions}

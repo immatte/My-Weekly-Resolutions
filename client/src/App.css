@@ -1,16 +1,176 @@
-.App {
+*{
+    text-align: center;
+}
+
+.start{
+    scale: 80%;
+    height: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 600px;
+    padding-left: 80px;
+    padding-right: 80px;
+
+}
+
+.home:hover{
+    color: rgb(11, 214, 214);
+    background-color: rgb(85, 61, 5);
+}
+
+.home a:hover{
+    color: rgb(11, 214, 214);
+    background-color: rgb(85, 61, 5);
+}
+
+.home {
+    height: 70px;
+    border: 1px solid grey;
+    background-color: rgb(231, 231, 231);
+    color: rgb(72, 72, 72);
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.home a{
+    color: rgb(72, 72, 72);
+    border: 0px;
+    font-style: normal;
+    font-size: 300%;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+
+.login:hover{
+    height: 70px;
+}
+
+.login a:hover{
+    background-color: rgb(85, 61, 5);
+    border: 0px;
+    color: rgb(11, 214, 214);
+    font-stretch: condensed;
+    font-weight: bolder;
+    font-size: 180%;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 20px 20px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 1px rgba(72, 72, 72, 0.208);
+    
+}
+
+.login {
+    height: 70px;
+    border: 1px solid grey;
+    background-color: rgb(231, 231, 231);
+    color: rgb(72, 72, 72);
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.login a{
+    color: rgb(72, 72, 72);
+    /* border: 1px solid grey; */
+    padding: 20px 30px;
+    font-stretch: condensed;
+    font-weight: bolder;
+    font-size: 180%;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-style: normal;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+.App{
+    border: 2px solid rgba(128, 128, 128, 0.396);
+    border-radius: 80px;
+    width: 1300px;
+}
+
+.container{
+    padding: 60px;
+    border: 120px;
+    border-radius: 80px;
+    margin: 0px;
+}
+
+h1 {
+    color: rgb(133, 23, 78);
+    padding: 40px;
+    font-size: 500%;
+    font-stretch: narrower;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-transform: capitalize;
+    font-stretch: ultra-condensed;
+    text-decoration: underline overline dotted 5px rgb(168, 158, 158);
+    line-height: 120px;
+}
+
+h2{
+    color: rgb(133, 23, 78);
+}
+
+div.container {
+    border: 80px solid rgb(233, 232, 232);
+}
+
+.navbar{
+   color: rgb(255, 251, 211);
+   border: 2px solid rgb(231, 188, 188);
+   background-color: rgb(246, 232, 214);
+   border-radius: 20px;
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr;
+   gap: 20px;
+   padding: 50px;
+   margin: 20px;
+   box-shadow: 1px 1px 10px 1px rgba(72, 72, 72, 0.208);
+   
+} 
+
+.text1{
+    display: contents;
+}
+
+.buttons{
+    background-color: rgb(246, 231, 214);
+    border: 0;
+    margin: 0px;  
+    font-style: bold;
+}
+.buttons a{
+    display: grid;
+
+    color: rgb(72, 72, 72);
+    font-stretch: condensed;
+    font-weight: 900;
+    font-size: 150%;
+    text-transform: uppercase;
+    background-color: rgb(190, 166, 108);
+    text-decoration: none;
+    padding: 40px 20px;
+    border: 2px solid rgb(169, 145, 92); 
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 1px rgba(72, 72, 72, 0.208);
+}
+
+
+
+/* .App {
     width: 800px;
-    margin:  auto;
-    /* color: #0a3864; */
-    background-color: hwb(5 91% 4%);
-    font-family: 'Verdana';
+    margin: auto;
+    background-color: hwb(5 95% 0%);
+    color: #0a3864;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
-    color: #c81a1a;
     font-weight: bold;
       }
 
-.my-navbar {
-    background-color: rgba (0, 0, 0, 0.5);
+.navbar{
+    color: #c81a1a;
     height: 30px;
     padding: 20px;
     display: flex; 
@@ -22,16 +182,10 @@
     font-size: 1.2em;
     height: 30px;
     font-weight: bold;
-    /* justify-content:flex-end; */
+    justify-content:flex-end;
 }
 
-h2 {
-    border-bottom: 5px solid #ccc;
-    margin-top: 2em;
-    color: #c81a1a;
-    padding: 10px;
-    text-align: center;
-}
+
 
 #container {
     display: grid;
@@ -42,4 +196,4 @@ h2 {
 
 .App h2 {
     font-weight: bold;
-}
+} */

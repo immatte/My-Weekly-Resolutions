@@ -19,10 +19,10 @@ return (
             <form onSubmit={e => handleSubmit(e)}>
                 <label>
                     New Resolution
-                    <input type="text" value={input} onChange={e => handleChange(e)} />
+                    <input id="inputbar" type="text" value={input} onChange={e => handleChange(e)} />
                 </label>
                 <div className="button">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary">Submit</button>
                 </div>
             </form>
     </div>
