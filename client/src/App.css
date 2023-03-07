@@ -3,14 +3,18 @@
 }
 
 .start{
-    scale: 80%;
-    height: 10px;
+    scale: 60%;
+    height: 50px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 600px;
-    padding-left: 80px;
-    padding-right: 80px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 100px;
+    padding-left: 200px;
+    padding-right: 200px;
 
+}
+
+.logout{
+    
 }
 
 .home:hover{
@@ -122,10 +126,11 @@ div.container {
    border: 2px solid rgb(231, 188, 188);
    background-color: rgb(246, 232, 214);
    border-radius: 20px;
-   display: grid;
-   grid-template-columns: 1fr 1fr 1fr;
-   gap: 20px;
-   padding: 50px;
+   grid-template-columns: 1fr 1fr;
+   /* display: flex; */
+   box-sizing: content-box;
+   /* gap: 50px; */
+   padding: 20px;
    margin: 20px;
    box-shadow: 1px 1px 10px 1px rgba(72, 72, 72, 0.208);
    

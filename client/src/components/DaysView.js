@@ -7,7 +7,7 @@ export default function DaysView() {
   return (
     <div className="daysList">
       <label className="span-2-cols">
-      <h5>Click on one of these days to add your resolutions</h5>
+      <h3 >Click on one of the week days to add your resolutions</h3>
       </label>
        <div className="DaysView">
     

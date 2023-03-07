@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import days from "../database.json";
 import ResolutionForm from "./DayView components/ResolutionForm";
@@ -8,14 +8,14 @@ import "./DayView.css";
 export default function DayView(props) {
   const { id } = useParams();
   const day = days.find((day) => +day.id === +id);
-  let [resolutions, setResolutions] = useState([]);
  
-  useEffect(() => {
-    getResolutions();
-  }, []);
+//   useEffect(() => {
+//     getResolutions();
+//   }, []);
 
-//   function getDays() { //I THINK I DON'T NEED THIS
-//     fetch("/days")
+
+// function getResolutions() {
+//     fetch(`/days/${id}/resolutions`)
 //         .then(response => {
 //             if (response.ok) {
 //                 return response.json();
@@ -32,26 +32,6 @@ export default function DayView(props) {
 //             console.log(`Error: ${error}`);
 //         });
 // }
-
-
-function getResolutions() {
-    fetch(`/days/${id}/resolutions`)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error(
-                    `Server error: ${response.status}: ${response.statusText}`
-                );
-            }
-        })
-        .then(data => {
-            setResolutions(data);
-        })
-        .catch (error =>  {
-            console.log(`Error: ${error}`);
-        });
-}
  
 const addResolution = async text => {
     let newResolution = { text, complete: 0, userId:props.user.id};
@@ -66,9 +46,8 @@ const addResolution = async text => {
         ///days/${id}/resolutions. This is how it works. See below...
         let response = await fetch(`/days/${id}/resolutions`, options);
         console.log(response);
-        if (response.ok) {
-            let data = await response.json();
-            setResolutions(data);
+        if (response.ok) {            
+            props.getUserResolutions();
         } else {
             console.log(`Server error: ${response.status}:
             ${response.statusText}`);
@@ -81,7 +60,7 @@ const addResolution = async text => {
 };
  
 const updateResolution = async id => {
-    let resolution = resolutions.find(r => r.id === id);
+    let resolution = props.resolutions.find(r => r.id === id);
     resolution.complete = !resolution.complete;
 
     let options = {
@@ -93,8 +72,7 @@ const updateResolution = async id => {
     try { 
         let response = await fetch(`/days/${id}/resolutions/${id}`, options);
         if (response.ok) {
-            let data = await response.json();
-            setResolutions(data);
+            props.getUserResolutions();
         } else {
             console.log(`Server error: ${response.status}:
             ${response.statusText}`);
@@ -113,8 +91,7 @@ const deleteResolution = async id => {
     try { 
         let response = await fetch(`/days/${id}/resolutions/${id}`, options);
         if (response.ok) {
-            let data = await response.json();
-            setResolutions(data);
+            props.getUserResolutions();
         } else {
             console.log(`Server error: ${response.status}:
             ${response.statusText}`);
@@ -130,7 +107,7 @@ return (
       <h3 id="resolutionDay">YOUR {day?.name}'S RESOLUTIONS</h3>
      <div className="ResolutionList">
         <ResolutionList
-        resolutions={resolutions}
+        resolutions={props.resolutions}
         toggleDoneCb={id => updateResolution(id)}
         deleteCb={id => deleteResolution(id)}
         />

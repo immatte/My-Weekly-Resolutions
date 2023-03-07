@@ -11,6 +11,7 @@ import DaysView from "./components/DaysView";
 import DayView from "./components/DayView";
 import LoginView from "./components/Auth components/LoginView";
 import ErrorView from "./components/Auth components/ErrorView";
+import ResolutionsView from "./components/ResolutionsView";
 
 //Import css
 import "./App.css";
@@ -23,6 +24,31 @@ function App() {
   const [user, setUser] = useState(Local.getUser());
   const [loginErrorMsg, setLoginErrorMsg] = useState('');
   const navigate = useNavigate();
+  const userId = Local.getUserId();
+  let [resolutions, setResolutions] = useState([]);
+ 
+  useEffect(() => {
+    getUserResolutions();
+  }, [user]);
+
+  function getUserResolutions() { 
+    fetch(`/resolutions/${userId}`)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(
+                    `Server error: ${response.status}: ${response.statusText}`
+                );
+            }
+        })
+        .then(data => {
+            setResolutions(data);
+        })
+        .catch (error =>  {
+            console.log(`Error: ${error}`);
+        });
+}
 
   async function doLogin(username, password) {
       let myresponse = await Api.loginUser(username, password);
@@ -39,6 +65,7 @@ function App() {
   function doLogout() {
       Local.removeUserInfo();
       setUser(null);
+      console.log("hello");
       // (NavBar will send user to home page)
   }
 
@@ -55,13 +82,16 @@ return (
       <div className="container">
       <h1>WELCOME TO YOUR WEEKLY RESOLUTIONS</h1>
         <div className="start">
-        <button className="home">
-          <label>
-            <Link to="/">⌂</Link> 
-          </label> 
-        </button>
+          <button className="home">
+            <label>
+              <Link to="/">⌂</Link> 
+            </label> 
+          </button>
           <button className="login">
             <Link to="/login">login</Link>
+          </button> 
+          <button className="logout" onClick={doLogout}>
+            logout
           </button> 
         </div>      
         <nav className="navbar">
@@ -77,9 +107,9 @@ return (
         
         <Routes>
           <Route path="/" element={<HomeView />} />
-          <Route path="/resolutions/:user" element={<DayView user = {user}/>} />
+          <Route path="/resolutions/:user" element={<ResolutionsView resolutions = {resolutions} user = {user}/>} />
           <Route path="/days" element={<DaysView />} >
-          <Route path=":id" element={<DayView user = {user}/>} />
+          <Route path=":id" element={<DayView getUserResolutions = {getUserResolutions} resolutions = {resolutions} user = {user}/>} />
           </Route>              
                 <Route path="/login" element={
                     <LoginView 
