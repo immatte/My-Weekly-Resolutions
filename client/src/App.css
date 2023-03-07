@@ -14,19 +14,22 @@
 }
 
 .logout{
-    
+    height: 70px;
+    border: 1px solid grey;
+    background-color: rgb(95, 95, 95);
+    color: white;
+    padding: 10px;
+    border-radius: 100px;
+    font-stretch: condensed;
+    font-weight: bolder;
+    font-size: 150%;
+    text-transform: uppercase;
 }
 
-
-
-.home:hover{
+.logout:hover{
     color: rgb(11, 214, 214);
     background-color: rgb(85, 61, 5);
-}
-
-.home a:hover{
-    color: rgb(11, 214, 214);
-    background-color: rgb(85, 61, 5);
+    cursor: pointer;
 }
 
 .home {
@@ -34,8 +37,7 @@
     border: 1px solid grey;
     background-color: rgb(231, 231, 231);
     color: rgb(72, 72, 72);
-    padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 30px;
 }
 
 .home a{
@@ -48,32 +50,23 @@
 }
 
 
-.login:hover{
-    height: 70px;
+.home:hover{
+    color: rgb(11, 214, 214);
+    background-color: rgb(85, 61, 5);
 }
 
-.login a:hover{
-    background-color: rgb(85, 61, 5);
-    border: 0px;
+.home a:hover{
     color: rgb(11, 214, 214);
-    font-stretch: condensed;
-    font-weight: bolder;
-    font-size: 180%;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 20px 20px;
-    border-radius: 10px;
-    box-shadow: 1px 1px 10px 1px rgba(72, 72, 72, 0.208);
-    
+    background-color: rgb(85, 61, 5);
 }
+
+
 
 .login {
-    height: 70px;
     border: 1px solid grey;
     background-color: rgb(231, 231, 231);
     color: rgb(72, 72, 72);
-    padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 30px;
 }
 
 .login a{
@@ -89,6 +82,17 @@
     text-decoration: none;
     border-radius: 10px;
 }
+
+.login:hover{
+    background-color: rgb(85, 61, 5);
+    color: rgb(11, 214, 214);
+}
+
+.login a:hover{
+    color: rgb(11, 214, 214);
+}
+
+
 
 .App{
     border: 2px solid rgba(128, 128, 128, 0.396);
@@ -124,19 +128,22 @@ div.container {
 }
 
 .navbar{
-   color: rgb(255, 251, 211);
    border: 2px solid rgb(231, 188, 188);
    background-color: rgb(246, 232, 214);
    border-radius: 20px;
-   grid-template-columns: 1fr 1fr;
-   /* display: flex; */
-   box-sizing: content-box;
-   /* gap: 50px; */
+   display: flex;
+   justify-content: center;
+   gap: 50px;
    padding: 20px;
    margin: 20px;
    box-shadow: 1px 1px 10px 1px rgba(72, 72, 72, 0.208);
    
 } 
+
+#navbar{
+    padding-left: 50px;
+    padding-right: 50px;
+}
 
 .text1{
     display: contents;
@@ -149,14 +156,14 @@ div.container {
     font-style: bold;
 }
 .buttons a{
-    display: grid;
+    display: flex;
 
     color: rgb(72, 72, 72);
     font-stretch: condensed;
     font-weight: 900;
     font-size: 150%;
     text-transform: uppercase;
-    background-color: rgb(190, 166, 108);
+    background-color: rgb(221, 168, 44);
     text-decoration: none;
     padding: 40px 20px;
     border: 2px solid rgb(169, 145, 92); 

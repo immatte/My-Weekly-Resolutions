@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "./DayView.css";
+import "./DaysView.css";
 import "./ResolutionsView.css"
 
 
@@ -9,13 +9,13 @@ export default function ResolutionsView(props) {
     return (
         
         <div className="resolutionsView">
-        <h3 id="resolutionDay">MY RESOLUTIONS</h3>
+        <h3 id="myresolutionDay">MY RESOLUTIONS</h3>
         <div className="myresolutionList">
-                <ul className="resolList">
+                <ul className="myresolList">
                     {props.resolutions.map(r => (
                         //check if possible to add the day weeks as references
                         //check css for completed
-                            <li id="resolItems" key={r.id} className={r.complete ? "complete" : null}>
+                            <li id="myresolItems" key={r.id} className={r.complete ? "complete" : null}>
                             <label >
                                     <button type="text" className="bi bi-check-square-fill" onClick={e => props.toggleDoneCb(r.id)}>
                                     ✔

@@ -3,6 +3,7 @@
     grid-template-columns: 1fr 3fr;    
     gap: 25px;
     padding: 40px;
+    padding-top: 0px;
 
 }
 .days {
@@ -13,7 +14,7 @@
 }
 
 .day {    
-    margin-top: 40px;
+    margin-top: 23px;
     margin-bottom: 35px;
     text-decoration: none;
     box-shadow: 1px 1px 10px 1px rgba(72, 72, 72, 0.208);
@@ -32,6 +33,11 @@
     margin-top: 40px;
 }
 
+.span-2-cols h3{
+    padding-left: 100px;
+    margin-top: 80px;
+}
+
 .DayView {
     width: 80%;
     /* display: center; */
@@ -47,6 +53,7 @@
 }
 
 #resolutionDay{
+    margin: 10px;
     font-size: 250%;
     font-family: Arial, Helvetica, sans-serif;
     font-stretch: ultra-condensed;

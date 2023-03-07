@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import days from "../database.json";
 import ResolutionForm from "./DayView components/ResolutionForm";
 import ResolutionList from "./DayView components/ResolutionList";
-import "./DayView.css";
 
 export default function DayView(props) {
   const { id } = useParams();

@@ -165,18 +165,19 @@ return (
           <button className="logout" onClick={doLogout}>
             logout
           </button> 
-        </div>      
-        <nav className="navbar">
-          <button className="buttons">
-            </button>
+        </div> 
+        <div id="navbar">
+          <nav className="navbar">
             <button className="buttons">
-            <Link to="/resolutions/:user">My Resolutions</Link>
-            </button> 
-            <button className="buttons">
-            <Link to="/days">New Resolution</Link>
-            </button> 
-        </nav>                   
-        
+              </button>
+              <button className="buttons">
+              <Link to="/resolutions/:user">My Resolutions</Link>
+              </button> 
+              <button className="buttons">
+              <Link to="/days">New Resolution</Link>
+              </button> 
+          </nav>                   
+        </div>     
         <Routes>
           <Route path="/" element={<HomeView />} />
           <Route path="/resolutions/:user" element={<ResolutionsView 
