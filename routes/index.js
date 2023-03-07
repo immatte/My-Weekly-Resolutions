@@ -132,7 +132,7 @@ router.put("/days/:day_id/resolutions/:r_id", async (req, res) => {
       let { day_id, text, complete } = req.body;
       let sql = `
         UPDATE resolutions 
-        SET day_id = ${day_id}, text = '${text}', complete = ${complete}
+        SET day_id = ${day_id}, text = "${text}", complete = ${complete}
         WHERE id = ${rId}
       `;
       // Do the UPDATE

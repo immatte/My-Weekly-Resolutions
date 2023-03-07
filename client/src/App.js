@@ -1,9 +1,11 @@
 import React,{ useEffect,useState } from "react";
+import { useParams } from "react-router-dom";
 import { Routes, Route, Link, useNavigate} from "react-router-dom";
 
 //import from helpers file
 import Local from './helpers/Local';
 import Api from './helpers/Api';
+import days from "./database.json";
 
 //Import view components
 import HomeView from "./components/HomeView";
@@ -20,13 +22,13 @@ import ResolutionList from "./components/DayView components/ResolutionList";
 
 function App() {
 
-
+  // const params = useParams();
   const [user, setUser] = useState(Local.getUser());
   const [loginErrorMsg, setLoginErrorMsg] = useState('');
   const navigate = useNavigate();
   const userId = Local.getUserId();
   let [resolutions, setResolutions] = useState([]);
- 
+
   useEffect(() => {
     getUserResolutions();
   }, [user]);
@@ -50,6 +52,76 @@ function App() {
         });
 }
 
+const addResolution = async (text,id) => {
+  let newResolution = { text, complete: 0, userId:user.id};
+  let options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newResolution)
+  };
+  
+  try {//I TRIED IT WITH :day_id, day_id, id and many other things...
+      ///days/${id}/resolutions. This is how it works. See below...
+      let response = await fetch(`/days/${id}/resolutions`, options);
+      console.log(response);
+      if (response.ok) {            
+          getUserResolutions();
+      } else {
+          console.log(`Server error: ${response.status}:
+          ${response.statusText}`);
+      }
+      
+  } catch (err) {
+      console.log(`Network error: ${err.message}`);
+  }
+  console.log(newResolution)
+};
+
+
+const updateResolution = async id => {
+  let day_id = days.id;
+  let resolution = resolutions.find(r => r.id === id);
+  resolution.complete = !resolution.complete;
+  console.log(id)
+  let options = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json"},
+      body: JSON.stringify(resolution)
+  };
+
+  try { 
+      let response = await fetch(`/days/${day_id}/resolutions/${id}`, options);
+      if (response.ok) {
+          getUserResolutions();
+      } else {
+          console.log(`Server error: ${response.status}:
+          ${response.statusText}`);
+      }
+  } catch (err) {
+      console.log(`Network error: ${err.message}`);
+  }
+};
+
+const deleteResolution = async id => {
+  let day_id = days.id;
+  console.log(id.id)
+  let options = {
+      method: "DELETE"
+   };
+
+  try { 
+      let response = await fetch(`/days/${day_id}/resolutions/${id}`, options);
+      if (response.ok) {
+          getUserResolutions();
+      } else {
+          console.log(`Server error: ${response.status}:
+          ${response.statusText}`);
+      }
+  } catch (err) {
+      console.log(`Network error: ${err.message}`);
+  }
+};
+
   async function doLogin(username, password) {
       let myresponse = await Api.loginUser(username, password);
       if (myresponse.ok) {
@@ -65,7 +137,6 @@ function App() {
   function doLogout() {
       Local.removeUserInfo();
       setUser(null);
-      console.log("hello");
       // (NavBar will send user to home page)
   }
 
@@ -79,6 +150,7 @@ function App() {
 
 return (
     <div className="App">
+
       <div className="container">
       <h1>WELCOME TO YOUR WEEKLY RESOLUTIONS</h1>
         <div className="start">
@@ -107,9 +179,24 @@ return (
         
         <Routes>
           <Route path="/" element={<HomeView />} />
-          <Route path="/resolutions/:user" element={<ResolutionsView resolutions = {resolutions} user = {user}/>} />
+          <Route path="/resolutions/:user" element={<ResolutionsView 
+                getUserResolutions = {getUserResolutions} 
+                toggleDoneCb={id => updateResolution(id)}
+                deleteCb={id => deleteResolution(id)}
+                resolutions={resolutions}
+                user = {user}
+                // id = {id}
+              />} />
           <Route path="/days" element={<DaysView />} >
-          <Route path=":id" element={<DayView getUserResolutions = {getUserResolutions} resolutions = {resolutions} user = {user}/>} />
+          <Route path=":id" element={<DayView 
+                getUserResolutions = {getUserResolutions} 
+                addResolution = {addResolution}
+                updateResolution = {updateResolution}
+                deleteResolution = {deleteResolution}
+                resolutions = {resolutions} 
+                user = {user}
+                // id = {id}
+              />} />
           </Route>              
                 <Route path="/login" element={
                     <LoginView 
